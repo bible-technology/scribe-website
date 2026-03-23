@@ -1,17 +1,16 @@
-
 import type { CodegenConfig } from '@graphql-codegen/cli';
 import { loadEnvConfig } from "@next/env";
 
-// @ts-ignore
 loadEnvConfig(process.cwd());
 
-const GITHUB_TOKEN = process.env.GITHUB_TOKEN; 
+const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
+const GRAPHQL_URL = process.env.GRAPHQL_URL || "https://api.github.com/graphql";
 
 const config: CodegenConfig = {
   overwrite: true,
   schema: [
     {
-      "https://api.github.com/graphql": {
+      [GRAPHQL_URL]: {
         headers: {
           Authorization: `Bearer ${GITHUB_TOKEN}` ?? '',
           'User-Agent': 'CodeGen'
